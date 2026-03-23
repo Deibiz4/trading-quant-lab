@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(rm:*)",
+      "Bash(gh auth:*)",
+      "Bash(git:*)",
+      "Bash(winget install:*)",
+      "Bash(export:*)",
+      "Bash(cat:*)",
+      "Bash(npm create:*)",
+      "Bash(npm install:*)",
+      "Bash(npx tailwindcss init:*)",
+      "Bash(npm run build:*)"
+    ]
+  }
+}

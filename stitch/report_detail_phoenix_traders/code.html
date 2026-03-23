@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Phoenix Traders | Detailed Trading Report</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Manrope:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-surface-variant": "#bbc9cf",
+                        "error-container": "#93000a",
+                        "surface-container-low": "#161c22",
+                        "on-tertiary-fixed": "#2e1500",
+                        "surface-container-high": "#252b31",
+                        "primary-fixed-dim": "#00daf3",
+                        "secondary-fixed-dim": "#bac8da",
+                        "surface-container": "#1a2027",
+                        "error": "#ffb4ab",
+                        "surface-variant": "#2f353c",
+                        "surface": "#0e141a",
+                        "surface-container-lowest": "#090f15",
+                        "surface-bright": "#343a41",
+                        "on-surface": "#dde3ec",
+                        "primary": "#8aedff",
+                        "inverse-surface": "#dde3ec",
+                        "on-secondary-container": "#acbacc",
+                        "on-error": "#690005",
+                        "tertiary-container": "#ffb26c",
+                        "inverse-on-surface": "#2b3138",
+                        "secondary": "#bac8da",
+                        "on-tertiary-fixed-variant": "#6c3a00",
+                        "tertiary-fixed-dim": "#ffb778",
+                        "on-primary": "#00363d",
+                        "surface-container-highest": "#2f353c",
+                        "on-secondary-fixed-variant": "#3b4857",
+                        "on-error-container": "#ffdad6",
+                        "on-background": "#dde3ec",
+                        "outline-variant": "#3c494e",
+                        "on-primary-fixed": "#001f24",
+                        "tertiary-fixed": "#ffdcc1",
+                        "on-primary-container": "#005964",
+                        "on-tertiary": "#4c2700",
+                        "primary-fixed": "#9cf0ff",
+                        "on-primary-fixed-variant": "#004f58",
+                        "surface-dim": "#0e141a",
+                        "on-secondary-fixed": "#0f1d2a",
+                        "outline": "#859398",
+                        "tertiary": "#ffd7b7",
+                        "on-secondary": "#243240",
+                        "on-tertiary-container": "#794200",
+                        "primary-container": "#00d6ee",
+                        "secondary-container": "#3d4a5a",
+                        "secondary-fixed": "#d6e4f7",
+                        "surface-tint": "#00daf3",
+                        "inverse-primary": "#006875",
+                        "background": "#0e141a"
+                    },
+                    fontFamily: {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Manrope"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
+                },
+            },
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(37, 43, 49, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #0e141a;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #2f353c;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body selection:bg-primary selection:text-on-primary">
+<!-- Top Navigation Bar -->
+<nav class="fixed top-0 w-full z-50 flex justify-between items-center px-8 h-20 bg-[#0e141a]/80 backdrop-blur-xl shadow-[0_0_15px_rgba(138,237,255,0.1)]">
+<div class="flex items-center gap-8">
+<span class="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent font-headline tracking-tight">PHOENIX TRADERS</span>
+<div class="hidden md:flex gap-6 items-center">
+<a class="font-headline tracking-tight text-slate-400 hover:text-cyan-200 transition-colors" href="#">Dashboard</a>
+<a class="font-headline tracking-tight text-slate-400 hover:text-cyan-200 transition-colors" href="#">Blog</a>
+<a class="font-headline tracking-tight text-cyan-400 border-b-2 border-cyan-400 pb-1" href="#">Reports</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden lg:block relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-sm">search</span>
+<input class="bg-surface-container-highest border-none rounded text-sm pl-10 pr-4 py-2 focus:ring-1 focus:ring-primary w-64" placeholder="Search data..." type="text"/>
+</div>
+<button class="bg-primary text-on-primary px-6 py-2 rounded font-headline font-bold hover:opacity-90 transition-all scale-95 duration-200">Login</button>
+</div>
+</nav>
+<!-- Sidebar -->
+<aside class="h-full w-64 fixed left-0 top-20 hidden lg:flex flex-col bg-[#0e141a]/90 backdrop-blur-md border-r border-cyan-500/10 z-40">
+<div class="p-6">
+<div class="flex items-center gap-3 mb-8">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center border border-primary/20">
+<span class="material-symbols-outlined text-primary">terminal</span>
+</div>
+<div>
+<p class="font-headline text-sm uppercase tracking-widest text-on-surface">Terminal</p>
+<p class="text-[10px] text-primary/60 uppercase tracking-tighter">Active Session</p>
+</div>
+</div>
+<nav class="space-y-1">
+<a class="text-slate-500 flex items-center gap-3 px-6 py-4 font-headline text-sm uppercase tracking-widest hover:bg-[#2f353c] hover:text-cyan-300 transition-transform duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="trending_up">trending_up</span> Market
+                </a>
+<a class="text-slate-500 flex items-center gap-3 px-6 py-4 font-headline text-sm uppercase tracking-widest hover:bg-[#2f353c] hover:text-cyan-300 transition-transform duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="query_stats">query_stats</span> Symbols
+                </a>
+<a class="text-slate-500 flex items-center gap-3 px-6 py-4 font-headline text-sm uppercase tracking-widest hover:bg-[#2f353c] hover:text-cyan-300 transition-transform duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="newspaper">newspaper</span> News
+                </a>
+<a class="text-slate-500 flex items-center gap-3 px-6 py-4 font-headline text-sm uppercase tracking-widest hover:bg-[#2f353c] hover:text-cyan-300 transition-transform duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="notifications_active">notifications_active</span> Alerts
+                </a>
+</nav>
+</div>
+<div class="mt-auto p-6">
+<button class="w-full bg-tertiary-container text-on-tertiary-container py-4 rounded font-headline font-bold uppercase tracking-widest text-xs shadow-lg shadow-tertiary/20">Trade Now</button>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="lg:ml-64 pt-28 px-8 pb-12">
+<!-- Header Section -->
+<header class="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div class="space-y-2">
+<div class="flex items-center gap-3 text-primary">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-headline uppercase tracking-[0.3em] text-xs font-bold">Performance Analytics</span>
+</div>
+<h1 class="text-5xl md:text-6xl font-headline font-bold tracking-tighter text-on-surface">Reporte Semanal: Octubre 14-20</h1>
+<p class="text-outline max-w-2xl font-body text-lg">High-precision execution summary and market narrative for the Q4 opening volatility cluster.</p>
+</div>
+<div class="flex gap-4">
+<div class="glass-panel p-4 rounded-xl border-l-4 border-primary">
+<p class="text-[10px] uppercase tracking-widest text-outline mb-1 font-label">Total P/L</p>
+<p class="text-2xl font-headline font-bold text-primary">+$14,280.42</p>
+</div>
+<div class="glass-panel p-4 rounded-xl border-l-4 border-tertiary">
+<p class="text-[10px] uppercase tracking-widest text-outline mb-1 font-label">Win Rate</p>
+<p class="text-2xl font-headline font-bold text-tertiary">68.4%</p>
+</div>
+</div>
+</header>
+<!-- Bento Grid Visualization Section -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-12">
+<!-- Heatmap Visualization -->
+<div class="lg:col-span-8 glass-panel rounded-2xl p-8 overflow-hidden relative group">
+<div class="flex justify-between items-center mb-8">
+<h3 class="font-headline font-bold text-xl flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">grid_view</span> Performance Heatmap
+                    </h3>
+<div class="flex gap-2">
+<span class="px-3 py-1 bg-surface-container text-[10px] rounded font-label uppercase">Volume Weighted</span>
+</div>
+</div>
+<!-- Heatmap Simulation -->
+<div class="grid grid-cols-4 md:grid-cols-8 gap-2">
+<!-- High Intensity Gains -->
+<div class="aspect-square bg-primary/90 rounded flex items-center justify-center text-[10px] font-bold text-on-primary">BTC</div>
+<div class="aspect-square bg-primary/70 rounded flex items-center justify-center text-[10px] font-bold text-on-primary">ETH</div>
+<div class="aspect-square bg-primary/50 rounded flex items-center justify-center text-[10px] font-bold text-on-primary">SOL</div>
+<!-- Neutral/Small -->
+<div class="aspect-square bg-surface-container-highest rounded flex items-center justify-center text-[10px] font-bold text-outline">LINK</div>
+<div class="aspect-square bg-primary/30 rounded flex items-center justify-center text-[10px] font-bold text-on-primary">DOT</div>
+<div class="aspect-square bg-surface-container-highest rounded flex items-center justify-center text-[10px] font-bold text-outline">ADA</div>
+<!-- Losses/Intensity -->
+<div class="aspect-square bg-tertiary/40 rounded flex items-center justify-center text-[10px] font-bold text-on-tertiary-container">AVAX</div>
+<div class="aspect-square bg-tertiary/60 rounded flex items-center justify-center text-[10px] font-bold text-on-tertiary-container">NEAR</div>
+<div class="aspect-square bg-primary/80 rounded flex items-center justify-center text-[10px] font-bold text-on-primary">FET</div>
+<div class="aspect-square bg-primary/60 rounded flex items-center justify-center text-[10px] font-bold text-on-primary">RNDR</div>
+<div class="aspect-square bg-primary/40 rounded flex items-center justify-center text-[10px] font-bold text-on-primary">INJ</div>
+<div class="aspect-square bg-surface-container-highest rounded flex items-center justify-center text-[10px] font-bold text-outline">OP</div>
+<div class="aspect-square bg-tertiary/20 rounded flex items-center justify-center text-[10px] font-bold text-on-tertiary-container">ARB</div>
+<div class="aspect-square bg-primary/90 rounded flex items-center justify-center text-[10px] font-bold text-on-primary">TAO</div>
+<div class="aspect-square bg-primary/50 rounded flex items-center justify-center text-[10px] font-bold text-on-primary">TIA</div>
+<div class="aspect-square bg-surface-container-highest rounded flex items-center justify-center text-[10px] font-bold text-outline">SUI</div>
+</div>
+<div class="mt-6 flex justify-between text-[10px] font-label uppercase text-outline tracking-widest">
+<span>Performance Intensity</span>
+<div class="flex gap-1 h-2">
+<div class="w-8 bg-tertiary rounded-sm"></div>
+<div class="w-8 bg-surface-container-highest rounded-sm"></div>
+<div class="w-8 bg-primary rounded-sm"></div>
+</div>
+</div>
+</div>
+<!-- Market Narrative Section -->
+<div class="lg:col-span-4 glass-panel rounded-2xl p-8 border-t border-primary/10">
+<h3 class="font-headline font-bold text-xl mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary">history_edu</span> Market Narrative
+                </h3>
+<div class="space-y-4 text-sm leading-relaxed text-on-surface-variant font-body custom-scrollbar h-[220px] overflow-y-auto pr-2">
+<p><strong class="text-primary">Phase 1:</strong> The week opened with aggressive front-running of CPI data. We observed a structural shift in BTC liquidity as it broke the $64k resistance. The "Kinetic Catalyst" approach allowed us to capture the initial surge in AI-sector tokens.</p>
+<p><strong class="text-tertiary">Mid-Week Correction:</strong> A liquidity sweep on Wednesday triggered stops across mid-cap altcoins. Phoenix systems shifted to defensive positioning, hedging 40% of spot exposure with perps.</p>
+<p><strong class="text-primary">Conclusion:</strong> Final session strength suggests a bullish continuation. Volume profiles indicate accumulation in high-frequency hubs.</p>
+</div>
+</div>
+</section>
+<!-- Detailed Trades Table -->
+<section class="mb-12">
+<div class="glass-panel rounded-2xl overflow-hidden">
+<div class="p-8 border-b border-outline-variant/20 flex justify-between items-center">
+<h3 class="font-headline font-bold text-xl">Execution History</h3>
+<div class="flex gap-4">
+<button class="flex items-center gap-2 text-xs font-label uppercase tracking-widest text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm">filter_list</span> Filter
+                        </button>
+<button class="flex items-center gap-2 text-xs font-label uppercase tracking-widest text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm">download</span> Export CSV
+                        </button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left font-label text-sm">
+<thead>
+<tr class="bg-surface-container-lowest text-outline border-b border-outline-variant/10 uppercase tracking-widest text-[10px]">
+<th class="px-8 py-4 font-bold">Symbol</th>
+<th class="px-8 py-4 font-bold">Entry Price</th>
+<th class="px-8 py-4 font-bold">Exit Price</th>
+<th class="px-8 py-4 font-bold">Profit/Loss</th>
+<th class="px-8 py-4 font-bold">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<tr class="hover:bg-primary/5 transition-colors">
+<td class="px-8 py-5 font-headline font-medium text-on-surface">BTC / USDT</td>
+<td class="px-8 py-5 font-mono text-xs">$64,284.00</td>
+<td class="px-8 py-5 font-mono text-xs">$67,112.50</td>
+<td class="px-8 py-5 text-primary font-bold">+$4,239.10</td>
+<td class="px-8 py-5">
+<span class="inline-block w-2 h-2 rounded-full bg-primary mr-2 shadow-[0_0_8px_rgba(138,237,255,0.6)]"></span>
+<span class="text-[10px] uppercase font-bold tracking-tighter">Completed</span>
+</td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors">
+<td class="px-8 py-5 font-headline font-medium text-on-surface">SOL / USDT</td>
+<td class="px-8 py-5 font-mono text-xs">$142.15</td>
+<td class="px-8 py-5 font-mono text-xs">$158.40</td>
+<td class="px-8 py-5 text-primary font-bold">+$2,844.00</td>
+<td class="px-8 py-5">
+<span class="inline-block w-2 h-2 rounded-full bg-primary mr-2 shadow-[0_0_8px_rgba(138,237,255,0.6)]"></span>
+<span class="text-[10px] uppercase font-bold tracking-tighter">Completed</span>
+</td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors">
+<td class="px-8 py-5 font-headline font-medium text-on-surface">AVAX / USDT</td>
+<td class="px-8 py-5 font-mono text-xs">$34.12</td>
+<td class="px-8 py-5 font-mono text-xs">$31.05</td>
+<td class="px-8 py-5 text-tertiary font-bold">-$842.20</td>
+<td class="px-8 py-5">
+<span class="inline-block w-2 h-2 rounded-full bg-tertiary mr-2 shadow-[0_0_8px_rgba(255,215,183,0.6)]"></span>
+<span class="text-[10px] uppercase font-bold tracking-tighter">Stopped Out</span>
+</td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors">
+<td class="px-8 py-5 font-headline font-medium text-on-surface">ETH / USDT</td>
+<td class="px-8 py-5 font-mono text-xs">$2,410.00</td>
+<td class="px-8 py-5 font-mono text-xs">--</td>
+<td class="px-8 py-5 text-outline">Unrealized</td>
+<td class="px-8 py-5">
+<span class="inline-block w-2 h-2 rounded-full bg-secondary-fixed animate-pulse mr-2"></span>
+<span class="text-[10px] uppercase font-bold tracking-tighter">In Progress</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<!-- Lessons Learned & Session Recap -->
+<section class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="glass-panel p-8 rounded-2xl relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 blur-3xl -mr-16 -mt-16"></div>
+<h3 class="font-headline font-bold text-xl mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">lightbulb</span> Lessons Learned
+                </h3>
+<ul class="space-y-4">
+<li class="flex gap-4 items-start">
+<span class="mt-1 w-5 h-5 flex-shrink-0 bg-primary/20 rounded flex items-center justify-center text-primary text-[10px] font-bold">01</span>
+<p class="text-sm text-on-surface-variant leading-snug">Execution speed on SOL breakouts was 120ms slower than optimal. Re-configuring RPC nodes for next week.</p>
+</li>
+<li class="flex gap-4 items-start">
+<span class="mt-1 w-5 h-5 flex-shrink-0 bg-primary/20 rounded flex items-center justify-center text-primary text-[10px] font-bold">02</span>
+<p class="text-sm text-on-surface-variant leading-snug">Emotional bias detected during the Wednesday dip. Stick to automated trailing stops rather than manual intervention.</p>
+</li>
+<li class="flex gap-4 items-start">
+<span class="mt-1 w-5 h-5 flex-shrink-0 bg-primary/20 rounded flex items-center justify-center text-primary text-[10px] font-bold">03</span>
+<p class="text-sm text-on-surface-variant leading-snug">AI sector coins are displaying higher beta than BTC. Adjusting position sizing accordingly.</p>
+</li>
+</ul>
+</div>
+<div class="glass-panel p-8 rounded-2xl border border-primary/5">
+<h3 class="font-headline font-bold text-xl mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary">speed</span> Session Momentum
+                </h3>
+<div class="space-y-6">
+<div class="relative h-24 bg-surface-container-lowest rounded-lg border border-outline-variant/10 flex items-end px-4 py-2 gap-1">
+<!-- Simulated momentum bars -->
+<div class="flex-1 bg-primary/20 h-[30%] rounded-sm"></div>
+<div class="flex-1 bg-primary/30 h-[45%] rounded-sm"></div>
+<div class="flex-1 bg-primary/50 h-[60%] rounded-sm"></div>
+<div class="flex-1 bg-primary/80 h-[85%] rounded-sm"></div>
+<div class="flex-1 bg-primary h-full rounded-sm"></div>
+<div class="flex-1 bg-tertiary/60 h-[40%] rounded-sm"></div>
+<div class="flex-1 bg-tertiary h-[20%] rounded-sm"></div>
+<div class="flex-1 bg-primary/60 h-[55%] rounded-sm"></div>
+<div class="flex-1 bg-primary/90 h-[90%] rounded-sm"></div>
+<p class="absolute top-2 left-4 text-[10px] uppercase font-label tracking-widest text-outline">Volatility Trend</p>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-surface-container-highest p-4 rounded border border-outline-variant/10">
+<p class="text-[10px] uppercase text-outline mb-1 font-label">Max Drawdown</p>
+<p class="text-xl font-headline font-bold text-on-surface">-3.2%</p>
+</div>
+<div class="bg-surface-container-highest p-4 rounded border border-outline-variant/10">
+<p class="text-[10px] uppercase text-outline mb-1 font-label">Sharpe Ratio</p>
+<p class="text-xl font-headline font-bold text-on-surface">2.84</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-12 bg-[#0e141a] grid grid-cols-1 md:grid-cols-3 gap-8 px-12 border-t border-[#2f353c]">
+<div class="space-y-4">
+<span class="font-['Space_Grotesk'] font-bold text-orange-400 text-xl tracking-tighter">PHOENIX TRADERS</span>
+<p class="font-['Inter'] text-xs text-slate-500 leading-relaxed uppercase tracking-wider">
+                © 2024 PHOENIX TRADERS. HIGH-FREQUENCY PRECISION.
+            </p>
+</div>
+<div class="flex flex-col gap-2">
+<p class="font-headline text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-2">Connect</p>
+<div class="flex gap-4">
+<a class="font-['Inter'] text-xs text-slate-500 hover:text-cyan-400 transition-colors" href="#">Twitter</a>
+<a class="font-['Inter'] text-xs text-slate-500 hover:text-cyan-400 transition-colors" href="#">Discord</a>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<p class="font-headline text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-2">Legal</p>
+<div class="flex gap-4">
+<a class="font-['Inter'] text-xs text-slate-500 hover:text-cyan-400 transition-colors" href="#">Terms</a>
+<a class="font-['Inter'] text-xs text-slate-500 hover:text-cyan-400 transition-colors" href="#">Risk Disclosure</a>
+</div>
+</div>
+</footer>
+<!-- Logo Visualization (Reference to data-alt required) -->
+<div class="hidden">
+<img data-alt="Futuristic phoenix logo with electric blue and fiery orange accents in a dark high-tech terminal setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdsMvq7tHzaa6KTN42NrTHcB-1IS2tFogcBfnYlUXiwGtJlKUbIPW_LLIA5sC-_2Ym1gr8iidxnjWSNSXkoemyhxkjBA9Gb7VEltuMvVmmbmijMd9oRPYzc3I42I-jQci68j5dmY-b9lWmIWGg-nZvCykMx9Q_Dok1_211c3vUmsKyAEJb_y-4G0zluxPJgmjgQgcnZ783kgy8RDF21LOzGzK4wocLjlqk4Ll72Uz9dBCT3M07jn4L_VowCrDB_MSA9Ms5LHhlHb-u"/>
+</div>
+</body></html>
