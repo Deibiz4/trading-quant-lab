@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { Heart } from 'react-feather'
 
 export default function CTASection() {
@@ -40,12 +41,12 @@ export default function CTASection() {
             >
               Unirse al Discord
             </a>
-            <a
-              href="/blog"
+            <Link
+              to="/blog"
               className="px-8 py-4 border-2 border-tertiary text-tertiary rounded-lg font-headline font-bold text-lg hover:bg-tertiary/10 transition-all"
             >
               Leer Blog
-            </a>
+            </Link>
           </div>
 
           {/* Social Proof */}

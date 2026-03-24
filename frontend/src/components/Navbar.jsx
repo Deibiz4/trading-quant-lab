@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { Menu, X, Search } from 'react-feather'
 
 export default function Navbar() {
@@ -8,21 +9,21 @@ export default function Navbar() {
     <nav className="fixed top-0 w-full z-50 flex justify-between items-center px-8 h-20 bg-[#0e141a]/80 backdrop-blur-xl shadow-[0_0_15px_rgba(138,237,255,0.1)]">
       {/* Left Side: Logo */}
       <div className="flex items-center gap-8">
-        <a href="/" className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent font-headline tracking-tight">
+        <Link to="/" className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent font-headline tracking-tight">
           PHOENIX TRADERS
-        </a>
+        </Link>
 
         {/* Nav Links - Hidden below lg */}
         <div className="hidden md:flex gap-8">
-          <a href="/" className="text-slate-400 hover:text-cyan-200 font-headline text-sm uppercase tracking-widest transition-colors">
+          <Link to="/" className="text-slate-400 hover:text-cyan-200 font-headline text-sm uppercase tracking-widest transition-colors">
             Home
-          </a>
-          <a href="/blog" className="text-slate-400 hover:text-cyan-200 font-headline text-sm uppercase tracking-widest transition-colors">
+          </Link>
+          <Link to="/blog" className="text-slate-400 hover:text-cyan-200 font-headline text-sm uppercase tracking-widest transition-colors">
             Blog
-          </a>
-          <a href="/hall-of-fame" className="text-cyan-400 border-b-2 border-cyan-400 font-headline text-sm uppercase tracking-widest">
+          </Link>
+          <Link to="/hall-of-fame" className="text-cyan-400 border-b-2 border-cyan-400 font-headline text-sm uppercase tracking-widest">
             Sistemas
-          </a>
+          </Link>
         </div>
       </div>
 
@@ -56,15 +57,15 @@ export default function Navbar() {
       {isMenuOpen && (
         <div className="absolute top-20 right-0 w-full bg-[#0e141a]/95 backdrop-blur-xl md:hidden">
           <div className="flex flex-col gap-4 p-6">
-            <a href="/" className="text-slate-400 hover:text-cyan-200 font-headline text-sm uppercase tracking-widest transition-colors">
+            <Link to="/" className="text-slate-400 hover:text-cyan-200 font-headline text-sm uppercase tracking-widest transition-colors">
               Home
-            </a>
-            <a href="/blog" className="text-slate-400 hover:text-cyan-200 font-headline text-sm uppercase tracking-widest transition-colors">
+            </Link>
+            <Link to="/blog" className="text-slate-400 hover:text-cyan-200 font-headline text-sm uppercase tracking-widest transition-colors">
               Blog
-            </a>
-            <a href="/hall-of-fame" className="text-cyan-400 font-headline text-sm uppercase tracking-widest">
+            </Link>
+            <Link to="/hall-of-fame" className="text-cyan-400 font-headline text-sm uppercase tracking-widest">
               Sistemas
-            </a>
+            </Link>
             <button className="bg-primary text-on-primary px-6 py-2 rounded font-headline font-bold text-sm w-full hover:bg-primary/90">
               Login
             </button>
