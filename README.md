@@ -16,24 +16,17 @@ Un laboratorio de investigación abierto que:
 
 ## 📚 Documentación
 
-Toda la documentación está centralizada en la carpeta [`DOCUMENTACION/`](./DOCUMENTACION/):
-
 **Empieza aquí:**
-1. **[`CLAUDE.md`](./CLAUDE.md)** (10 min) — Stack, convenciones, estructura
-2. **[`DOCUMENTACION/SETUP_COMPLETE.md`](./DOCUMENTACION/SETUP_COMPLETE.md)** (10 min) — Resumen del setup
-3. **[`DOCUMENTACION/especificaciones/docs/MANUAL.md`](./DOCUMENTACION/especificaciones/docs/MANUAL.md)** (15 min) — Componentes detallados
-
-**Para arquitectura técnica:**
-- **[`DOCUMENTACION/guias/trading_quant_lab_guia.md`](./DOCUMENTACION/guias/trading_quant_lab_guia.md)** — Roadmap y arquitectura (8 semanas)
-- **[`DOCUMENTACION/guias/TRADING_QUANT_LAB_GUIA_MAESTRA.md`](./DOCUMENTACION/guias/TRADING_QUANT_LAB_GUIA_MAESTRA.md)** — Filosofía y comunidad
-- **[`DOCUMENTACION/guias/presentacion_comunidad_quant.md`](./DOCUMENTACION/guias/presentacion_comunidad_quant.md)** — Análisis del portafolio
+1. **[`CLAUDE.md`](./CLAUDE.md)** (5 min) — Stack, convenciones, estructura, roadmap
+2. **[`docs/MANUAL.md`](./docs/MANUAL.md)** (10 min) — Guía de funcionalidades y páginas disponibles
+3. **[`docs/CHANGELOG.md`](./docs/CHANGELOG.md)** (5 min) — Historial de cambios y versiones
 
 **Para seguimiento:**
-- **[`DOCUMENTACION/especificaciones/docs/LOGS.md`](./DOCUMENTACION/especificaciones/docs/LOGS.md)** — Qué se ha hecho
-- **[`DOCUMENTACION/especificaciones/docs/CHANGELOG.md`](./DOCUMENTACION/especificaciones/docs/CHANGELOG.md)** — Historial de cambios
-- **[`DOCUMENTACION/especificaciones/docs/API.md`](./DOCUMENTACION/especificaciones/docs/API.md)** — Endpoints (Fase 3+)
+- **[`docs/LOGS.md`](./docs/LOGS.md)** — Registro detallado de cada sesión de desarrollo
+- **[`docs/API.md`](./docs/API.md)** — Documentación de endpoints (próximo: Fase 3)
 
-**📖 Ver [DOCUMENTACION/README.md](./DOCUMENTACION/README.md) para guía completa de documentación**
+**Recursos Adicionales:**
+- **[DOCUMENTACION/](./DOCUMENTACION/)** — Análisis arquitectónico, guías técnicas (si existen)
 
 ---
 
@@ -168,8 +161,8 @@ git commit -m "feat: add walk-forward validation
 
 | Fase | Semana | Objetivo | Estado |
 |------|--------|----------|--------|
-| **1** | 1 | Frontend: Landing + Diccionario + Hall of Fame | ⏳ Próximo |
-| **2** | 2 | Blog MDX: 5+ posts de tutoriales | ⏳ |
+| **1** | 1 | Frontend: Landing + Diccionario + Hall of Fame | ✅ **COMPLETADA** |
+| **2** | 2 | Blog MDX: 5+ posts de tutoriales | ⏳ Próximo |
 | **3** | 3 | Backend FastAPI: API pública con HTTPS | ⏳ |
 | **4** | 4 | Bot → API → Web: alertas en tiempo real | ⏳ |
 | **5** | 5 | Infraestructura: deploy automático | ⏳ |
@@ -255,8 +248,8 @@ Código público y reproducible. Úsalo, aprende, mejóralo.
 
 ---
 
-**Estado**: En desarrollo — Fase 1
-**Última actualización**: Marzo 2026
-**Versión**: 1.0.0 (próximo)
+**Estado**: ✅ Fase 1 Completada — En desarrollo Fase 2
+**Última actualización**: 24 de Marzo de 2026
+**Versión**: 1.0.0 (Fase 1 Frontend)
 
 [GitHub](#) | [Notion](#) | [Discord](#) | [Telegram](#)
