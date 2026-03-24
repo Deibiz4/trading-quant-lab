@@ -12,7 +12,12 @@
       "Bash(npx tailwindcss init:*)",
       "Bash(npm run build:*)",
       "Bash(ls:*)",
-      "Bash(npm info:*)"
+      "Bash(npm info:*)",
+      "Bash(gh workflow:*)",
+      "Bash(gh run list:*)",
+      "Bash(gh api:*)",
+      "WebFetch(domain:deibiz4.github.io)",
+      "Bash(curl:*)"
     ]
   }
 }

@@ -109,5 +109,16 @@
   <body class="bg-background text-on-background font-body selection:bg-primary selection:text-on-primary">
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+
+    <!-- Handle 404.html redirect for SPA routing -->
+    <script>
+      (function() {
+        var redirect = sessionStorage.redirect;
+        delete sessionStorage.redirect;
+        if (redirect && redirect !== location.href) {
+          history.replaceState(null, null, redirect);
+        }
+      }());
+    </script>
   </body>
 </html>
