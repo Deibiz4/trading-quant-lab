@@ -1,12 +1,39 @@
+import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { ArrowLeft, MessageCircle, BookOpen } from 'react-feather'
+import { MDXProvider } from '@mdx-js/react'
 import posts from '@/data/posts.json'
+import { loadPostContent } from '@/lib/posts'
+import * as mdxComponents from '@/components/mdx'
 
 export default function BlogPost() {
   const { slug } = useParams()
   const navigate = useNavigate()
+  const [Content, setContent] = useState(null)
+  const [loading, setLoading] = useState(true)
 
   const post = posts.find(p => p.slug === slug)
+
+  // Load MDX content on mount or when slug changes
+  useEffect(() => {
+    if (!post) {
+      setLoading(false)
+      return
+    }
+
+    setLoading(true)
+    loadPostContent(post.slug)
+      .then(component => {
+        setContent(() => component)
+      })
+      .catch(error => {
+        console.error('Error loading post content:', error)
+        setContent(null)
+      })
+      .finally(() => {
+        setLoading(false)
+      })
+  }, [post?.slug])
 
   if (!post) {
     return (
@@ -111,82 +138,49 @@ export default function BlogPost() {
 
       {/* Content */}
       <section className="px-4 md:px-8 py-12 max-w-4xl mx-auto">
-        <div className="glass-panel p-8 rounded-xl mb-8">
-          <div className="flex items-start gap-3 mb-6 p-4 bg-primary-container/20 rounded-lg border border-primary/30">
-            <BookOpen size={20} className="text-primary flex-shrink-0 mt-1" />
-            <div>
-              <p className="text-primary font-label font-semibold mb-1">Contenido Completo en Fase 2</p>
-              <p className="text-on-surface/80 text-sm">
-                El artículo completo con análisis detallados, gráficos y código estará disponible en la Fase 2 cuando implementemos el sistema MDX. Por ahora, puedes ver el resumen completo a continuación.
-              </p>
+        <div className="glass-panel p-8 rounded-xl mb-8 prose-mdx">
+          {loading ? (
+            <div className="flex items-center justify-center py-12">
+              <div className="text-center">
+                <div className="inline-block animate-spin rounded-full h-8 w-8 border-2 border-primary border-t-transparent mb-4" />
+                <p className="text-on-surface/70">Cargando artículo...</p>
+              </div>
             </div>
-          </div>
-
-          <div className="prose prose-invert max-w-none mb-8">
-            <h2 className="text-2xl font-bold font-headline text-on-surface mb-4">Resumen del Artículo</h2>
-            <p className="text-on-surface/80 leading-relaxed mb-6">
-              {post.excerpt}
-            </p>
-
-            <h3 className="text-xl font-bold font-headline text-on-surface mb-3 mt-6">¿De qué trata?</h3>
-            <div className="text-on-surface/80 space-y-3">
-              {post.category === 'tutoriales' && (
-                <p>
-                  Este tutorial forma parte de la serie "<strong>{post.series || 'Fundamentos Cuantitativos'}</strong>" y proporciona una guía paso a paso para entender y aplicar un concepto clave en trading cuantitativo. Incluye ejemplos prácticos, código reproducible, y validación matemática de cada paso.
-                </p>
-              )}
-              {post.category === 'autopsias' && (
-                <p>
-                  Una autopsia detallada de un sistema que fracasó en nuestra validación. Analizamos los datos, explicamos dónde salió mal, y extraemos lecciones aprendidas. El objetivo es que aprendas tanto de nuestros éxitos como de nuestros fracasos.
-                </p>
-              )}
-              {post.category === 'analisis' && (
-                <p>
-                  Análisis completo de una estrategia del portafolio validado. Incluye todos los números (Profit Factor, Monte Carlo P5%, métricas de riesgo), la metodología de validación, y cómo fue descubierta y refinada.
-                </p>
-              )}
-              {post.category === 'metodologia' && (
-                <p>
-                  Explicación profunda de una metodología de validación o concepto fundamental en trading cuantitativo. Cubrimos la teoría, la implementación práctica, y por qué es importante para filtrar estrategias falsas.
-                </p>
-              )}
+          ) : Content ? (
+            <MDXProvider components={mdxComponents}>
+              <Content />
+            </MDXProvider>
+          ) : (
+            <div className="text-center py-8">
+              <p className="text-on-surface/70 mb-4">Contenido no disponible</p>
+              <button
+                onClick={() => navigate('/blog')}
+                className="text-primary hover:text-cyan-300 transition-colors text-sm font-label"
+              >
+                Volver al blog
+              </button>
             </div>
+          )}
+        </div>
 
-            <h3 className="text-xl font-bold font-headline text-on-surface mb-3 mt-6">Requisitos Previos</h3>
-            <ul className="text-on-surface/80 space-y-2 list-disc list-inside">
-              <li>Conocimiento básico de trading (conceptos de entrada, salida, stop-loss)</li>
-              <li>Familiaridad con los términos clave (puedes usar el Diccionario)</li>
-              <li>Interés en validación matemática rigurosa</li>
-            </ul>
-
-            <h3 className="text-xl font-bold font-headline text-on-surface mb-3 mt-6">Lo que Aprenderás</h3>
-            <ul className="text-on-surface/80 space-y-2 list-disc list-inside">
-              <li>Conceptos fundamentales del tema del artículo</li>
-              <li>Cómo aplicarlos a tu propia investigación</li>
-              <li>Errores comunes que debes evitar</li>
-              <li>Validación práctica con datos reales</li>
-            </ul>
-          </div>
-
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-3 pt-6 border-t border-on-surface/10">
-            <a
-              href="https://discord.gg/trading-quant-lab"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-primary text-on-primary font-label transition-all hover:opacity-90 font-semibold"
-            >
-              <MessageCircle size={18} />
-              Discutir en Discord
-            </a>
-            <button
-              onClick={() => navigate('/hall-of-fame')}
-              className="flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-surface-container border border-on-surface/10 text-on-surface font-label transition-all hover:border-tertiary/50 font-semibold"
-            >
-              <BookOpen size={18} />
-              Ver Hall of Fame
-            </button>
-          </div>
+        {/* CTA Buttons */}
+        <div className="flex flex-col sm:flex-row gap-3 mb-8">
+          <a
+            href="https://discord.gg/trading-quant-lab"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-primary text-on-primary font-label transition-all hover:opacity-90 font-semibold"
+          >
+            <MessageCircle size={18} />
+            Discutir en Discord
+          </a>
+          <button
+            onClick={() => navigate('/hall-of-fame')}
+            className="flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-surface-container border border-on-surface/10 text-on-surface font-label transition-all hover:border-tertiary/50 font-semibold"
+          >
+            <BookOpen size={18} />
+            Ver Hall of Fame
+          </button>
         </div>
 
         {/* Related Posts */}

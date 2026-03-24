@@ -1,0 +1,107 @@
+# Autopsia: El Sistema con PF 1.7 que Falló en Monte Carlo
+
+A veces, una estrategia pasa Walk-Forward Validation con volantes. Los números en In-Sample son espectaculares. Pero el Monte Carlo Simulation revela la verdad: **la robustez no existe**.
+
+## La Estrategia: Fibonacci Retracement EMA-Cross
+
+**Concepto**: Combinar Fibonacci retracements (niveles de soporte) con un cruce de EMAs (momentum). Era una combinación inteligente, teóricamente sólida.
+
+**Período de Desarrollo**: 2015-2020
+
+## Las Métricas In-Sample (Promesa)
+
+Los números lucían tan bien que consideramos lanzarla inmediatamente:
+
+
+<MetricResult
+  label="Profit Factor In-Sample"
+  value={1.72}
+  benchmark={1.30}
+  status="good"
+/>
+
+<MetricResult
+  label="Monte Carlo P5% In-Sample"
+  value={1.68}
+  benchmark={1.20}
+  status="good"
+/>
+
+- Win Rate: 57.1%
+- Max Drawdown: 16.5%
+- Trades: 287
+
+## Walk-Forward Validation (Primer Cribado)
+
+Aplicamos WFV y... pasó.
+
+- PF OOS: 1.58 (excelente)
+- MC P5% (IS): 1.68 (robusto)
+
+Parecía ganador.
+
+## Monte Carlo Simulation (El Test Final)
+
+Aquí es donde todo se derrumbó.
+
+Ejecutamos 10,000 permutaciones de los 287 trades OOS. Los resultados fueron desastrosos:
+
+
+<BugReport
+  title="Monte Carlo P5%: de 1.68 a 0.98"
+  pf_is={1.72}
+  pf_oos={1.58}
+  mc_is={1.68}
+  mc_oos={0.98}
+>
+  El percentil 5% de las permutaciones mostró un resultado de 0.98, es decir, **pérdida neta**. Esto significa que en 1 de cada 20 escenarios alternativos de trades (pero del mismo sistema), habría perdido dinero.
+</BugReport>
+
+## ¿Por Qué el Monte Carlo Falló?
+
+### Análisis
+
+1. **Distribución Sesgada de Ganancias**
+   - Pocos trades enormemente ganadores
+   - Muchos trades pequeños perdedores
+   - La serie ordenada es crítica para el resultado
+
+2. **Dependencia de Secuencia**
+   - Si los grandes ganadores vinieron en ciertos momentos, eso fue suerte
+   - Una permutación diferente podría distribuir esos ganadores al inicio o al final
+   - Sin esos ganadores en las posiciones "correctas", el sistema colapsa
+
+3. **Muestra Insuficiente de Volatilidad**
+   - Los 287 trades OOS no capturaron suficiente diversidad de condiciones de mercado
+   - Monte Carlo revela esa debilidad al permutar
+
+
+<WarnBox type="danger">
+  Un sistema que depende del orden específico de sus ganancias es frágil. Monte Carlo lo detecta.
+</WarnBox>
+
+## Criterio Rechazado
+
+**Veredicto**: DESCARTADO
+
+Razón: Monte Carlo P5% < 1.05 (nuestro límite mínimo)
+
+Este sistema tiene apariencia de ganador, pero es un espejismo. La robustez real no existe.
+
+## Lecciones
+
+1. **Nunca confíes solo en In-Sample**. Los números pueden ser bellos y estar totalmente sesgados.
+
+2. **Walk-Forward no es suficiente**. Reordena los trades, verifica distribución de riesgo.
+
+3. **Distribuciones simétricas son más robustas**. Sistemas donde muchos trades ganan pequeñas cantidades son más robustos que sistemas con pocos grandes ganadores.
+
+## Conclusión
+
+Este es un ejemplo perfecto de por qué publicamos fracasos. Un sistema con PF 1.72 debería ser aprobado según criterios ingenuos. Pero nuestro protocolo de tres capas (WFV + MC + Transferibilidad) lo rechazó.
+
+Trading Quant Lab no es "encontrar ganadores". Es **eliminar perdedores disfrazados de ganadores**.
+
+---
+
+**Lectura relacionada**: *Monte Carlo: El Test que Mata el 60% de las Estrategias* - Entiende por qué P5% > 1.20 es nuestro umbral.

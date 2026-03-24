@@ -1,0 +1,133 @@
+# Supply Zones: Cómo Validamos el Segundo Sistema del Portafolio
+
+El **Supply Zone Bounce GBPUSD** es nuestro segundo sistema operable. A diferencia del Wyckoff Spring (clásico), el Supply Zone es una metodología moderna basada en análisis de niveles de resistencia de oferta en el mercado institucional.
+
+## La Teoría de Supply Zones
+
+La idea es que los grandes operadores venden desde niveles específicos (zonas de oferta). Cuando el precio retorna a esas zonas, ese supply vuelve a emerger, generando rebotes.
+
+Identificamos zonas de oferta analizando:
+1. Donde el precio encontró resistencia histórica fuerte
+2. El rango de precios donde múltiples vendedores actúan
+3. La densidad de volutas en esos niveles
+
+## Descubrimiento en GBPUSD
+
+Analizando GBPUSD 2016-2022, encontramos que ciertos levels actuaban como topes predecibles. El precio rebotaba antes de romper definitivamente.
+
+Diseñamos una estrategia para:
+- Identificar zonas de oferta automáticamente
+- Esperar un toque del precio a esa zona
+- Entrar en un bounce con riesgo definido
+
+## Resultados de Validación
+
+### In-Sample (2016-2020)
+
+
+<MetricResult
+  label="Profit Factor In-Sample"
+  value={1.52}
+  benchmark={1.30}
+  status="good"
+/>
+
+<MetricResult
+  label="Trades In-Sample"
+  value={203}
+  benchmark={100}
+  status="good"
+/>
+
+### Out-of-Sample Walk-Forward (2020-2024)
+
+<MetricResult
+  label="Profit Factor OOS"
+  value={1.39}
+  benchmark={1.30}
+  status="good"
+/>
+
+<MetricResult
+  label="Win Rate OOS"
+  value={55.7}
+  benchmark={50}
+  status="good"
+/>
+
+La degradación IS → OOS es solo 8.5%, lo que sugiere un patrón robusto.
+
+### Monte Carlo Simulation
+
+<MetricResult
+  label="Monte Carlo P5%"
+  value={1.28}
+  benchmark={1.20}
+  status="good"
+/>
+
+Justo por encima de nuestro umbral, pero aprobado.
+
+## Transferibilidad Cruzada
+
+Para asegurar que las Supply Zones no son específicas de GBPUSD, testeamos:
+
+```
+GBPUSD: PF 1.39 (descubrimiento original)
+EURUSD: PF 1.31 (prueba cruzada)
+AUDUSD: PF 1.28 (prueba cruzada)
+```
+
+La consistencia confirma que el patrón es transferible.
+
+## Manejo de Riesgos por Supply Zone
+
+Cada setup sigue este protocolo:
+
+```
+Identificación de Zona:
+- Rango de precios donde se detectó oferta múltiple
+- Ejemplo: GBP/USD 1.2750-1.2780
+
+Setup de Trading:
+- Entry: Precio rebota de 1.2760 (dentro de la zona)
+- Stop Loss: 1.2715 (debajo de la zona)
+- Take Profit: 1.2830 (siguiente nivel de demanda)
+
+Risk: 45 pips
+Reward: 70 pips
+Ratio: 1:1.56
+```
+
+## Ventajas Sobre Otros Sistemas
+
+
+<WarnBox type="info">
+  Las Supply Zones no dependen de indicadores (RSI, MACD, etc.), solo de análisis de precio. Esto reduce el riesgo de overfitting a parámetros de indicadores.
+</WarnBox>
+
+## Desafíos
+
+1. **Identificación Manual Inicial**: Aunque automatizamos la detección, requirió análisis manual previo
+2. **Falsos Positivos en Ruptura**: A veces el precio rompe definitivamente una zona (no rebota)
+3. **Degradación Leve**: El P5% de 1.28 es apenas mayor a 1.20; margen de error es pequeño
+
+## Conclusión Operativa
+
+
+<StrategyVerdict
+  name="Supply Zone Bounce GBPUSD"
+  verdict="operable"
+  pf={1.39}
+  mc={1.28}
+  trades={187}
+  wr={55.7}
+/>
+
+Es un sistema viable con validación sólida. El punto débil es su P5% cercano al umbral, lo que sugiere que necesitamos monitoreo activo de cambios de mercado.
+
+En próximas revisiones, consideraremos entrenar con períodos de mayor volatilidad para mejorar el P5%.
+
+---
+
+**Lectura relacionada**: Ver ambos sistemas en el Hall of Fame. Entender cómo evaluamos transferibilidad.

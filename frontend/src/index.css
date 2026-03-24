@@ -161,3 +161,154 @@ html {
   background: #8aedff;
   color: #00363d;
 }
+
+/* MDX Prose Styling */
+.prose-mdx {
+  color: #dde3ec;
+}
+
+.prose-mdx h1,
+.prose-mdx h2,
+.prose-mdx h3,
+.prose-mdx h4 {
+  font-family: 'Space Grotesk', sans-serif;
+  color: #dde3ec;
+  font-weight: 600;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+.prose-mdx h1 {
+  font-size: 2.5rem;
+  border-bottom: 2px solid rgba(138, 237, 255, 0.2);
+  padding-bottom: 0.5em;
+}
+
+.prose-mdx h2 {
+  font-size: 1.875rem;
+  margin-top: 2em;
+}
+
+.prose-mdx h3 {
+  font-size: 1.25rem;
+  color: #8aedff;
+}
+
+.prose-mdx h4 {
+  font-size: 1.125rem;
+}
+
+.prose-mdx p {
+  line-height: 1.75;
+  margin-bottom: 1.25em;
+  color: #bbc9cf;
+}
+
+.prose-mdx strong {
+  color: #8aedff;
+  font-weight: 600;
+}
+
+.prose-mdx em {
+  color: #ffd7b7;
+  font-style: italic;
+}
+
+.prose-mdx a {
+  color: #8aedff;
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+
+.prose-mdx a:hover {
+  color: #00d6ee;
+}
+
+.prose-mdx ul,
+.prose-mdx ol {
+  margin-bottom: 1.5em;
+  padding-left: 2em;
+}
+
+.prose-mdx li {
+  margin-bottom: 0.5em;
+  color: #bbc9cf;
+}
+
+.prose-mdx ol li {
+  list-style-type: decimal;
+}
+
+.prose-mdx ul li {
+  list-style-type: disc;
+}
+
+.prose-mdx code {
+  background: rgba(138, 237, 255, 0.1);
+  color: #8aedff;
+  padding: 0.125em 0.5em;
+  border-radius: 0.25rem;
+  font-family: 'Monaco', 'Courier New', monospace;
+  font-size: 0.9em;
+}
+
+.prose-mdx pre {
+  background: #0a1018;
+  border: 1px solid rgba(255, 215, 183, 0.1);
+  border-radius: 0.5rem;
+  padding: 1.5em;
+  overflow-x: auto;
+  margin-bottom: 1.5em;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.prose-mdx pre code {
+  background: none;
+  color: #bbc9cf;
+  padding: 0;
+  border-radius: 0;
+}
+
+.prose-mdx blockquote {
+  border-left: 4px solid #8aedff;
+  padding-left: 1.5em;
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: 1.5em;
+  color: #bbc9cf;
+  font-style: italic;
+}
+
+.prose-mdx table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.5em;
+  font-size: 0.9em;
+}
+
+.prose-mdx thead {
+  background: rgba(138, 237, 255, 0.1);
+}
+
+.prose-mdx th,
+.prose-mdx td {
+  border: 1px solid rgba(138, 237, 255, 0.2);
+  padding: 0.75em;
+  text-align: left;
+}
+
+.prose-mdx th {
+  color: #8aedff;
+  font-weight: 600;
+}
+
+.prose-mdx tbody tr:nth-child(even) {
+  background: rgba(138, 237, 255, 0.05);
+}
+
+.prose-mdx hr {
+  border: none;
+  border-top: 2px solid rgba(138, 237, 255, 0.2);
+  margin: 2em 0;
+}

@@ -1,0 +1,85 @@
+# Guía de Transferibilidad entre Activos Forex
+
+Una estrategia que funciona perfectamente en EURUSD durante 5 años puede ser completamente inútil en GBPJPY o en otro timeframe. En Trading Quant Lab, la **transferibilidad entre activos es un requisito obligatorio** antes de cualquier aprobación.
+
+## El Problema de la Especificidad
+
+Muchos traders encuentran un patrón en un par específico durante un período específico. Es natural: cada par tiene su propia dinámica, volatilidad y correlaciones. Pero si una estrategia solo funciona en un par... ¿es realmente un patrón o una coincidencia?
+
+
+<WarnBox type="warning">
+  Una estrategia que funciona en EURUSD pero falla en GBPUSD sugiere que estás capturando noise específico del par, no un patrón repetible.
+</WarnBox>
+
+## Nuestra Metodología de Validación Cruzada
+
+### 1. Testea al Menos en 3 Pares Diferentes
+
+**Requerimiento**: Si discovers una estrategia en EURUSD, valida en:
+- Un par con correlación diferente (ejemplo: GBPJPY)
+- Un par con dinámicas de volatilidad distintas (ejemplo: NZDUSD)
+- El par original (EURUSD) pero en período diferente
+
+### 2. Diferentes Timeframes
+
+- Entrena en H1, testea en H4
+- Entrena en D1, testea en W1
+- ¿Funciona la lógica independientemente de la resolución temporal?
+
+### 3. Cambios de Mercado
+
+Cada tipo de mercado presenta desafíos:
+- **Tendencia fuerte** (2020, post-COVID)
+- **Rango** (2022, antes de decisiones de tasas)
+- **Alta volatilidad** (pánico de mercado)
+- **Baja volatilidad** (crecimiento estable)
+
+Un sistema debe funcionar en al menos 2-3 de estos regímenes.
+
+## Métricas de Transferibilidad
+
+Cuando validamos transferibilidad en Trading Quant Lab, monitoreamos:
+
+```
+Profit Factor por Activo:
+  EURUSD: 1.45
+  GBPUSD: 1.38
+  GBPJPY: 1.41
+  AUDUSD: 1.33
+```
+
+Si un par es significativamente peor (< 1.10 cuando otros promedian > 1.30), esa estrategia es específica de mercado, no universal.
+
+## Ejemplo del Mundo Real
+
+Tomemos el **Wyckoff Spring EURUSD** del portafolio:
+
+
+<MetricResult
+  label="PF OOS EURUSD"
+  value={1.45}
+  benchmark={1.30}
+  status="good"
+/>
+
+<MetricResult
+  label="PF OOS GBPUSD"
+  value={1.38}
+  benchmark={1.30}
+  status="good"
+/>
+
+<MetricResult
+  label="PF OOS AUDUSD"
+  value={1.41}
+  benchmark={1.30}
+  status="good"
+/>
+
+La consistencia entre pares indica que la estrategia captura un comportamiento real de mercado, no noise específico.
+
+## Conclusión
+
+La transferibilidad es el "test del espejo" para overfitting. Si tu estrategia solo funciona en tu par favorito, es probable que haya memorizando la estructura específica de ese período y ese activo.
+
+En Trading Quant Lab, ninguna estrategia llega al portafolio sin pasar este test.

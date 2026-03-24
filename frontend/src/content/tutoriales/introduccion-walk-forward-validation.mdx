@@ -1,0 +1,78 @@
+# Introducción al Walk-Forward Validation
+
+El Walk-Forward Validation (WFV) es probablemente la técnica más importante para evitar overfitting en trading cuantitativo. En este artículo, aprenderás cómo funciona, por qué es esencial, y cómo la aplicamos en Trading Quant Lab.
+
+## ¿Qué es el Overfitting?
+
+Imagina que ajustas los parámetros de una estrategia buscando el mejor resultado histórico. Es fácil encontrar parámetros que funcionan perfectamente en el pasado. El problema: esos parámetros pueden estar "memorizando" fluctuaciones aleatorias de ese período específico, no patrones reales del mercado.
+
+
+<WarnBox type="danger">
+  Una estrategia con Profit Factor de 2.5 en backtesting pero que fracasa en trading real es un síntoma clásico de overfitting severo.
+</WarnBox>
+
+## ¿Cómo Funciona el Walk-Forward Validation?
+
+WFV es elegantemente simple: **nunca testeas una estrategia con los datos que usaste para entrenarla**.
+
+### El Proceso en 4 Pasos
+
+1. **Divide el histórico en ventanas** — Por ejemplo, 10 años de datos en 20 ventanas de 6 meses cada una.
+2. **Entrena en la primera ventana** — Optimiza parámetros usando solo los primeros 6 meses.
+3. **Testea en la siguiente ventana** — Aplica esos parámetros sin cambios en los 6 meses siguientes.
+4. **Repite el proceso** — Desliza la ventana, entrena con los nuevos 6 meses, testea en los 6 siguientes.
+
+El resultado es un conjunto de trades generados con parámetros que **nunca vieron esos datos antes**.
+
+## Un Ejemplo Práctico
+
+Digamos que testeas EURUSD desde 2018 hasta 2024. En lugar de:
+
+❌ **Malo**: Optimiza parámetros con datos 2018-2024, luego reporta resultados 2018-2024
+✅ **Correcto**: Optimiza 2018-2020, testea 2020-2022, luego optimiza 2020-2022, testea 2022-2024
+
+Los datos de test nunca fueron usados para optimización.
+
+
+<MetricResult
+  label="Profit Factor In-Sample (entrenamiento)"
+  value={1.58}
+  benchmark={1.30}
+  status="good"
+/>
+
+<MetricResult
+  label="Profit Factor Out-of-Sample (validación)"
+  value={1.45}
+  benchmark={1.30}
+  status="good"
+/>
+
+## Por Qué Importa
+
+Las métricas Out-of-Sample son **siempre menores** que las In-Sample. Es normal. Pero si el deterioro es drástico (ejemplo: PF de 2.0 IS a 0.9 OOS), la estrategia probablemente está overfitted.
+
+### El Criterio de Aceptación
+
+En Trading Quant Lab, una estrategia debe mantener:
+- **Profit Factor OOS > 1.30** (no solo rentable, sino consistentemente)
+- **Trades OOS > 100** (suficiente volumen estadístico)
+- **Degradación < 30%** (el deterioro IS→OOS es predecible)
+
+## Validación en Cascada
+
+Walk-Forward Validation no es suficiente por sí sola. La combinamos con:
+
+1. **Monte Carlo Simulation** — Permutamos el orden de trades para probar robustez
+2. **Análisis de Transferibilidad** — ¿Funciona en otros pares? ¿Otros timeframes?
+3. **Test de Estrés** — ¿Resiste cambios de volatilidad o correlación?
+
+## Conclusión
+
+WFV nos protege de la tentación de "ajustar hasta que funcione". Al separar datos de entrenamiento y validación, garantizamos que nuestros resultados reflejan un patrón real, no un artefacto estadístico de un período específico.
+
+La mayoría de las estrategias que testemos morirán en WFV. Eso es precisamente lo que queremos: eliminar falsos positivos antes de arriesgar dinero real.
+
+---
+
+**Siguiente paso**: Aprende sobre Monte Carlo Simulation y por qué el P5% es tu métrica más importante.

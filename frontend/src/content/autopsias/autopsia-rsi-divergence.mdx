@@ -1,0 +1,91 @@
+# Anatomía de un Fracaso: RSI Divergence EURUSD
+
+Este artículo documenta el fracaso completo de una estrategia que parecía prometedora: **RSI Divergence en EURUSD**. Mostrar nuestros fracasos es fundamental para la filosofía de Trading Quant Lab.
+
+## La Idea Original
+
+**Hipótesis**: Cuando el RSI forma una divergencia con el precio (precio sube, RSI baja), el momentum está debilitándose y una reversión es inminente.
+
+Es una idea clásica, enseñada en innumerables libros y cursos. Debería funcionar, ¿verdad?
+
+## Resultados In-Sample (Entrenamiento)
+
+Optimizamos los parámetros de RSI (período, niveles) en datos 2018-2022. Los números se veían excelentes:
+
+
+<MetricResult
+  label="Profit Factor In-Sample"
+  value={1.62}
+  benchmark={1.30}
+  status="good"
+/>
+
+<MetricResult
+  label="Monte Carlo P5% In-Sample"
+  value={1.48}
+  benchmark={1.20}
+  status="good"
+/>
+
+**Métricas adicionales**:
+- Win Rate: 54.2%
+- Max Drawdown: 18%
+- Trades: 342 (excelente volumen)
+
+## El Giro: Validación Out-of-Sample
+
+Luego aplicamos los mismos parámetros a datos 2022-2024 (período NO utilizado en optimización).
+
+
+<BugReport
+  title="RSI Divergence falló rotundamente en validación"
+  pf_is={1.62}
+  pf_oos={0.89}
+  mc_is={1.48}
+  mc_oos={0.76}
+>
+  La estrategia perdió 41% de rentabilidad en el período de validación. El Profit Factor cayó de 1.62 a 0.89, es decir, **perdió dinero**. El Monte Carlo P5% también colapsó a 0.76.
+</BugReport>
+
+## ¿Qué Salió Mal?
+
+### Análisis Post-Mortem
+
+1. **Cambio de Régimen de Mercado**
+   - 2018-2022: Tendencia alcista con correcciones predecibles
+   - 2022-2024: Volatilidad extrema, cambios de política monetaria, pausa de QE
+
+2. **La Trampa de la Divergencia**
+   - En mercados tendenciales, las divergencias funcionan
+   - En mercados caóticos, generan señales falsas constantemente
+
+3. **Ajuste Excesivo de Parámetros**
+   - Probamos 500+ combinaciones de parámetros RSI
+   - Seleccionamos la mejor (overfitting por búsqueda)
+   - Esa combinación era específica de 2018-2022
+
+## Lecciones Aprendidas
+
+
+<WarnBox type="warning">
+  Cuando una estrategia muestra un deterioro > 40% entre In-Sample y Out-of-Sample, el patrón probablemente es un artefacto estadístico, no un patrón real.
+</WarnBox>
+
+### Lo que Haremos Diferente
+
+1. **Validación Multi-Período**: No solo 2018-2022 → 2022-2024. Usaremos 4-5 períodos diferentes.
+2. **Test de Estrés**: Incluir períodos de alta volatilidad durante optimización.
+3. **Menos Parámetros**: Limitar combinaciones de búsqueda para reducir riesgo de overfitting.
+4. **Análisis de Régimen**: Entender qué tipo de mercado favorece cada estrategia.
+
+## Conclusión
+
+**RSI Divergence es DESCARTADO** del portafolio.
+
+No es que RSI sea inútil. El problema fue nuestra aplicación: optimizamos demasiado para un período específico, luego nos sorprendió que fallara en condiciones diferentes.
+
+Este es exactamente el tipo de fallo que queremos documentar y publicar. El trading cuantitativo es aprender de ambas: estrategias que funcionan Y que no.
+
+---
+
+**Lectura relacionada**: *Introducción al Walk-Forward Validation* - Por qué esta técnica habría protegido de este fallo.
