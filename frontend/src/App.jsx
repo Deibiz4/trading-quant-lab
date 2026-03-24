@@ -4,6 +4,8 @@ import Footer from '@/components/Footer'
 import Home from '@/pages/Home'
 import HallOfFame from '@/pages/HallOfFame'
 import Dictionary from '@/pages/Dictionary'
+import Blog from '@/pages/Blog'
+import BlogPost from '@/pages/BlogPost'
 
 function App() {
   const basename = import.meta.env.PROD ? '/trading-quant-lab/' : '/'
@@ -16,8 +18,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/hall-of-fame" element={<HallOfFame />} />
           <Route path="/dictionary" element={<Dictionary />} />
-          {/* Placeholder for Blog - will use MDX in Fase 2 */}
-          <Route path="/blog" element={<div className="py-20 text-center text-on-surface">Blog - Próximamente</div>} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:slug" element={<BlogPost />} />
         </Routes>
       </main>
       <Footer />

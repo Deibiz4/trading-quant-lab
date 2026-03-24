@@ -1,0 +1,87 @@
+[
+  {
+    "slug": "introduccion-walk-forward-validation",
+    "title": "Introducción al Walk-Forward Validation",
+    "category": "tutoriales",
+    "series": "Fundamentos Cuantitativos",
+    "excerpt": "Cómo evitar el overfitting usando Walk-Forward Validation correctamente. Paso a paso con datos reales del mercado Forex.",
+    "date": "2026-03-20",
+    "readTime": "8 min",
+    "tags": ["WFV", "backtesting", "overfitting"],
+    "featured": true
+  },
+  {
+    "slug": "autopsia-rsi-divergence",
+    "title": "Anatomía de un Fracaso: RSI Divergence EURUSD",
+    "category": "autopsias",
+    "excerpt": "Por qué descartamos el sistema RSI Divergence. PF 1.2 en muestra, 0.89 fuera de muestra. Lecciones aprendidas.",
+    "date": "2026-03-18",
+    "readTime": "12 min",
+    "tags": ["RSI", "divergencia", "fracaso"],
+    "featured": false
+  },
+  {
+    "slug": "monte-carlo-simulation-basics",
+    "title": "Monte Carlo: El Test que Mata el 60% de las Estrategias",
+    "category": "metodologia",
+    "series": "Fundamentos Cuantitativos",
+    "excerpt": "Entendiendo Monte Carlo Simulation. Por qué el P5% debe ser > 1.20. Casos reales del portafolio.",
+    "date": "2026-03-15",
+    "readTime": "10 min",
+    "tags": ["Monte Carlo", "validación", "robustez"],
+    "featured": false
+  },
+  {
+    "slug": "wyckoff-spring-eurusd-completo",
+    "title": "Wyckoff Spring en EURUSD: Análisis del Sistema Operable",
+    "category": "analisis",
+    "series": "Análisis de Estrategias",
+    "excerpt": "Desglose completo del sistema Wyckoff Spring. PF OOS 1.45, MC P5% 1.32, 156 trades validados.",
+    "date": "2026-03-12",
+    "readTime": "15 min",
+    "tags": ["Wyckoff", "EURUSD", "operable"],
+    "featured": false
+  },
+  {
+    "slug": "guia-transferibilidad-activos",
+    "title": "Guía de Transferibilidad entre Activos Forex",
+    "category": "tutoriales",
+    "series": "Fundamentos Cuantitativos",
+    "excerpt": "Cómo validar que una estrategia funciona en múltiples pares y timeframes. El test invisible que muchos omiten.",
+    "date": "2026-03-10",
+    "readTime": "9 min",
+    "tags": ["transferibilidad", "múltiples activos", "validación"],
+    "featured": false
+  },
+  {
+    "slug": "autopsia-monte-carlo-pf-17",
+    "title": "Autopsia: El Sistema con PF 1.7 que Falló en Monte Carlo",
+    "category": "autopsias",
+    "excerpt": "Ganador en backtest, perdedor en validación rigurosa. Cómo un Profit Factor alto no garantiza nada. MC P5% de 0.98.",
+    "date": "2026-03-08",
+    "readTime": "11 min",
+    "tags": ["Monte Carlo", "falso positivo", "overfitting"],
+    "featured": false
+  },
+  {
+    "slug": "drawdown-psicologico-real",
+    "title": "Drawdown Psicológico vs Drawdown Real: La Diferencia Importa",
+    "category": "tutoriales",
+    "excerpt": "No es lo mismo un 20% de caída que 50 operaciones consecutivas perdedoras. Qué métrica elegir para vivir el trading.",
+    "date": "2026-03-05",
+    "readTime": "7 min",
+    "tags": ["drawdown", "psicología", "riesgo"],
+    "featured": false
+  },
+  {
+    "slug": "supply-zones-validacion",
+    "title": "Supply Zones: Cómo Validamos el Segundo Sistema del Portafolio",
+    "category": "analisis",
+    "series": "Análisis de Estrategias",
+    "excerpt": "Supply Zone Bounce GBPUSD. Metodología de identificación de zonas, validación WFV+MC, y aplicación en vivo.",
+    "date": "2026-03-01",
+    "readTime": "13 min",
+    "tags": ["Supply Zones", "GBPUSD", "análisis técnico"],
+    "featured": false
+  }
+]
