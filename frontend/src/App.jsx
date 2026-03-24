@@ -4,8 +4,10 @@ import Footer from '@/components/Footer'
 import Home from '@/pages/Home'
 
 function App() {
+  const basename = import.meta.env.PROD ? '/trading-quant-lab/' : '/'
+
   return (
-    <BrowserRouter basename="/trading-quant-lab/">
+    <BrowserRouter basename={basename}>
       <Navbar />
       <main className="flex-1 pt-20">
         <Routes>
